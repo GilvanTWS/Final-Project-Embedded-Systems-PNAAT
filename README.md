@@ -230,32 +230,37 @@ Interactive terminal showing formatted telemetry (`time | source | LED | brightn
 ---
 
 ## Repository Structure
+```
 Projeto_finalPNAAT/
-├── main/
-│ ├── main.c
-│ ├── imu_config.cpp
-│ ├── imu_config.h
-│ ├── wifi_ntp.c
-│ ├── wifi_ntp.h
-│ ├── mqtt_link.c
-│ ├── mqtt_link.h
-│ ├── Kconfig.projbuild
-│ └── idf_component.yml
+├── build/
 ├── components/
-│ ├── i2c_config/
-│ ├── oled_setup/
-│ ├── bno085/ # vendored
-│ └── edge_impulse/
-│ ├── edge-impulse-sdk/
-│ ├── model-parameters/
-│ └── tflite-model/
+│   ├── i2c_config/
+│   ├── oled_setup/
+│   └── bno085/              # vendored
+├── docs/
+│   └── images/
+├── main/
+│   ├── main.c
+│   ├── imu_config.cpp
+│   ├── imu_config.h
+│   ├── wifi_ntp.c
+│   ├── wifi_ntp.h
+│   ├── mqtt_link.c
+│   ├── mqtt_link.h
+│   ├── Kconfig.projbuild
+│   └── idf_component.yml
+├── managed_components/
 ├── tools/
-│ ├── pnaat_mqtt.sh
-│ └── pnaat_mqtt.py
+│   ├── pnaat_mqtt.sh
+│   └── pnaat_mqtt.py
+├── CMakeLists.txt
+├── LICENSE
+├── README.md
+├── dependencies.lock
 ├── partitions.csv
-└── sdkconfig
-
-
+├── sdkconfig
+└── sdkconfig.old
+```
 ---
 
 ## Technologies Used
