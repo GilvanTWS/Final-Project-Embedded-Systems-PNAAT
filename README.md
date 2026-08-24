@@ -118,9 +118,9 @@ yaw   = atan2f(2*(qr*qk + qi*qj), 1 - 2*(qj*qj + qk*qk)) * 57.2958f;
    - `right → idle → idle`: LED stays on
    - `right → idle → right`: no new action
 
-[IMAGE: Edge Impulse Studio screenshots — data explorer, accuracy/loss, confusion matrix]
+![IMAGE: Edge Impulse Studio screenshots — data explorer, accuracy/loss, confusion matrix](docs/images/4)
 
-[IMAGE: chart of a gesture sample showing pitch/yaw variation]
+![IMAGE: chart of a gesture sample showing pitch/yaw variation](docs/images/3)
 
 ---
 
@@ -139,7 +139,7 @@ LEDC: channel 0, timer 0, low-speed mode, 5 kHz, 10-bit (duty 0-1023).
 duty = (brightness_percent * 1023) / 100;  // OFF = duty 0
 ```
 
-[IMAGE: photo sequence of the LED at 0%, 40%, and 80% brightness]
+![IMAGE: photo sequence of the LED at 0%, 40%, and 80% brightness](docs/images/5)
 
 ---
 
@@ -172,9 +172,9 @@ With no battery-backed RTC, the board always boots into the Unix epoch. Once con
 
 **Resilience:** publishing goes through a FreeRTOS queue outside the sensor's critical path; without Wi-Fi/internet everything keeps working locally, with automatic reconnection. Credentials configurable via `menuconfig` (section "Configuracao Wi-Fi / MQTT (PNAAT)").
 
-[IMAGE: screenshot of telemetry JSON arriving in an MQTT client]
+![IMAGE: screenshot of telemetry JSON arriving in an MQTT client](docs/images/6)
 
-[IMAGE: photo of the LED turning on while the console sends the `on` command]
+![IMAGE: photo of the LED turning on while the console sends the `on` command](docs/images/7)
 
 ---
 
