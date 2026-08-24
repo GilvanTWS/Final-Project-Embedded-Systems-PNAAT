@@ -1,4 +1,4 @@
-# PNAAT Gestos ESP32 — AI-Powered Home Automation 🤖
+# PNAAT Gestures ESP32 — AI-Powered Home Automation 🤖
 
 ![Platform](https://img.shields.io/badge/platform-ESP32--S3-e7352c?style=flat-square&logo=espressif)
 ![ESP-IDF](https://img.shields.io/badge/ESP--IDF-v5.4.4-blue?style=flat-square)
@@ -118,9 +118,9 @@ yaw   = atan2f(2*(qr*qk + qi*qj), 1 - 2*(qj*qj + qk*qk)) * 57.2958f;
    - `right → idle → idle`: LED stays on
    - `right → idle → right`: no new action
 
-[IMAGE: Edge Impulse Studio screenshots — data explorer, accuracy/loss, confusion matrix]
+![IMAGE: Edge Impulse Studio screenshots — data explorer, accuracy/loss, confusion matrix](docs/images/4)
 
-[IMAGE: chart of a gesture sample showing pitch/yaw variation]
+![IMAGE: chart of a gesture sample showing pitch/yaw variation](docs/images/3)
 
 ---
 
@@ -139,7 +139,7 @@ LEDC: channel 0, timer 0, low-speed mode, 5 kHz, 10-bit (duty 0-1023).
 duty = (brightness_percent * 1023) / 100;  // OFF = duty 0
 ```
 
-[IMAGE: photo sequence of the LED at 0%, 40%, and 80% brightness]
+![IMAGE: photo sequence of the LED at 0%, 40%, and 80% brightness](docs/images/5)
 
 ---
 
@@ -172,9 +172,9 @@ With no battery-backed RTC, the board always boots into the Unix epoch. Once con
 
 **Resilience:** publishing goes through a FreeRTOS queue outside the sensor's critical path; without Wi-Fi/internet everything keeps working locally, with automatic reconnection. Credentials configurable via `menuconfig` (section "Configuracao Wi-Fi / MQTT (PNAAT)").
 
-[IMAGE: screenshot of telemetry JSON arriving in an MQTT client]
+![IMAGE: screenshot of telemetry JSON arriving in an MQTT client](docs/images/6)
 
-[IMAGE: photo of the LED turning on while the console sends the `on` command]
+![IMAGE: photo of the LED turning on while the console sends the `on` command](docs/images/7)
 
 ---
 
@@ -230,32 +230,37 @@ Interactive terminal showing formatted telemetry (`time | source | LED | brightn
 ---
 
 ## Repository Structure
+```
 Projeto_finalPNAAT/
-├── main/
-│ ├── main.c
-│ ├── imu_config.cpp
-│ ├── imu_config.h
-│ ├── wifi_ntp.c
-│ ├── wifi_ntp.h
-│ ├── mqtt_link.c
-│ ├── mqtt_link.h
-│ ├── Kconfig.projbuild
-│ └── idf_component.yml
+├── build/
 ├── components/
-│ ├── i2c_config/
-│ ├── oled_setup/
-│ ├── bno085/ # vendored
-│ └── edge_impulse/
-│ ├── edge-impulse-sdk/
-│ ├── model-parameters/
-│ └── tflite-model/
+│   ├── i2c_config/
+│   ├── oled_setup/
+│   └── bno085/              # vendored
+├── docs/
+│   └── images/
+├── main/
+│   ├── main.c
+│   ├── imu_config.cpp
+│   ├── imu_config.h
+│   ├── wifi_ntp.c
+│   ├── wifi_ntp.h
+│   ├── mqtt_link.c
+│   ├── mqtt_link.h
+│   ├── Kconfig.projbuild
+│   └── idf_component.yml
+├── managed_components/
 ├── tools/
-│ ├── pnaat_mqtt.sh
-│ └── pnaat_mqtt.py
+│   ├── pnaat_mqtt.sh
+│   └── pnaat_mqtt.py
+├── CMakeLists.txt
+├── LICENSE
+├── README.md
+├── dependencies.lock
 ├── partitions.csv
-└── sdkconfig
-
-
+├── sdkconfig
+└── sdkconfig.old
+```
 ---
 
 ## Technologies Used
@@ -269,8 +274,6 @@ ESP-IDF v5.4.4 · FreeRTOS · Edge Impulse + TensorFlow Lite Micro (EON) · LVGL
 PNAAT course · Edge Impulse platform · Heltec · Espressif community
 
 ---
-
-## License
 
 ## License
 
