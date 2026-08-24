@@ -65,9 +65,9 @@
 
 > The project uses the **new I2C API** from ESP-IDF (`driver/i2c_master.h`), not the legacy API.
 
-![IMAGE: photo of the real assembly with jumper wires visible](docs/images/1)
+![IMAGE: photo of the real assembly with jumper wires visible](docs/images/1.jpeg)
 
-![IMAGE: schematic/Fritzing diagram of the BNO085 ↔ Heltec wiring](docs/images/2)
+![IMAGE: schematic/Fritzing diagram of the BNO085 ↔ Heltec wiring](docs/images/2.jpeg)
 
 ---
 
@@ -118,9 +118,82 @@ yaw   = atan2f(2*(qr*qk + qi*qj), 1 - 2*(qj*qj + qk*qk)) * 57.2958f;
    - `right → idle → idle`: LED stays on
    - `right → idle → right`: no new action
 
-![IMAGE: Edge Impulse Studio screenshots — data explorer, accuracy/loss, confusion matrix](docs/images/4)
+![IMAGE: Edge Impulse Studio screenshots — data explorer, accuracy/loss, confusion matrix](docs/images/4.jpeg)
 
-![IMAGE: chart of a gesture sample showing pitch/yaw variation](docs/images/3)
+![IMAGE: chart of a gesture sample showing pitch/yaw variation](docs/images/3.jpeg)
+
+![IMAGE: Edge Impulse Studio screenshots — data explorer, accuracy/loss, confusion matrix](docs/images/8.png)
+
+---
+
+## Training Details (Edge Impulse)
+
+This section documents the exact configuration used in Edge Impulse Studio to generate the embedded model, supporting experiment reproducibility.
+
+### Impulse Configuration / Time Series Data
+
+| Parameter | Value |
+|---|---|
+| Input axes | `x`, `y`, `z` (3 axes) |
+| Window size | 3,000 ms |
+| Window increase (stride) | 1,000 ms |
+| Frequency | 50 Hz |
+| Zero-pad data | Enabled |
+| Train on data subset | 100% |
+| Output classes | 5 (`down`, `up`, `right`, `left`, `idle`) |
+
+### Signal Processing (DSP)
+
+The project uses a **Raw Data** block with all three axes enabled and the **Scale axes** factor set to `1`, meaning no additional normalization is applied beyond the quaternion → Euler conversion.
+
+| On-device performance metric | Value |
+|---|---:|
+| Processing time | 1 ms |
+| Peak RAM usage | 2 KB |
+
+### Neural Network Architecture
+
+The model is a dense (fully connected) neural network, trained and quantized to **int8** by the EON Compiler.
+
+| Layer | Detail |
+|---|---|
+| Input layer | 450 features (150 samples × 3 axes) |
+| Dense layer | 20 neurons |
+| Dense layer | 10 neurons |
+| Output layer | 5 classes |
+
+### Training Hyperparameters
+
+| Parameter | Value |
+|---|---|
+| Number of training cycles | 30 |
+| Learning rate | 0.0005 |
+| Use learned optimizer | Disabled |
+| Training processor | CPU |
+| Model version | Quantized (`int8`) |
+
+### Validation Results
+
+| Metric | Value |
+|---|---:|
+| Accuracy | 100.0% |
+| Loss | 0.03 |
+| Area under ROC Curve | 1.00 |
+| Weighted average Precision | 1.00 |
+| Weighted average Recall | 1.00 |
+| Weighted average F1 score | 1.00 |
+
+The validation set produced an F1 score of **1.00 across all five classes**, with the following confusion matrix:
+
+| Actual \\ Predicted | `down` | `up` | `right` | `left` | `idle` |
+|---|---:|---:|---:|---:|---:|
+| `down` | 100% | 0% | 0% | 0% | 0% |
+| `up` | 0% | 100% | 0% | 0% | 0% |
+| `right` | 0% | 0% | 100% | 0% | 0% |
+| `left` | 0% | 0% | 0% | 100% | 0% |
+| `idle` | 0% | 0% | 0% | 0% | 100% |
+
+> ⚠️ **Validation note:** The 100% validation accuracy is a positive result, but it may also reflect a relatively small or non-diverse dataset. It is recommended to validate the model using data collected in different sessions and conditions to evaluate its generalization before treating it as final.
 
 ---
 
@@ -139,7 +212,7 @@ LEDC: channel 0, timer 0, low-speed mode, 5 kHz, 10-bit (duty 0-1023).
 duty = (brightness_percent * 1023) / 100;  // OFF = duty 0
 ```
 
-![IMAGE: photo sequence of the LED at 0%, 40%, and 80% brightness](docs/images/5)
+![IMAGE: photo sequence of the LED at 0%, 40%, and 80% brightness](docs/images/5.jpeg)
 
 ---
 
@@ -172,9 +245,9 @@ With no battery-backed RTC, the board always boots into the Unix epoch. Once con
 
 **Resilience:** publishing goes through a FreeRTOS queue outside the sensor's critical path; without Wi-Fi/internet everything keeps working locally, with automatic reconnection. Credentials configurable via `menuconfig` (section "Configuracao Wi-Fi / MQTT (PNAAT)").
 
-![IMAGE: screenshot of telemetry JSON arriving in an MQTT client](docs/images/6)
+![IMAGE: screenshot of telemetry JSON arriving in an MQTT client](docs/images/6.jpeg)
 
-![IMAGE: photo of the LED turning on while the console sends the `on` command](docs/images/7)
+![IMAGE: photo of the LED turning on while the console sends the `on` command](docs/images/7.jpeg)
 
 ---
 
@@ -238,7 +311,18 @@ Projeto_finalPNAAT/
 │   ├── oled_setup/
 │   └── bno085/              # vendored
 ├── docs/
-│   └── images/
+│   ├── images/
+│   │   ├── 1.jpeg
+│   │   ├── 2.jpeg
+│   │   ├── 3.jpeg
+│   │   ├── 4.jpeg
+│   │   ├── 5.jpeg
+│   │   ├── 6.jpeg
+│   │   ├── 7.jpeg
+│   │   └── 8.png
+│   └── Report/
+│       ├── Report.pdf
+│       └── Relatorio.pdf
 ├── main/
 │   ├── main.c
 │   ├── imu_config.cpp
@@ -261,6 +345,21 @@ Projeto_finalPNAAT/
 ├── sdkconfig
 └── sdkconfig.old
 ```
+---
+
+## Documentation
+
+The `docs/` directory contains the project's supporting documentation and images:
+
+- `docs/images/` contains the images used throughout the README and project documentation.
+  - Images `1.jpeg` through `7.jpeg` are JPEG files.
+  - Image `8.png` is a PNG file and contains the Edge Impulse Studio screenshots for the data explorer, accuracy/loss results, and confusion matrix.
+- `docs/Report/` contains two versions of the project report:
+  - `Report.pdf` — report in **English**.
+  - `Relatorio.pdf` — report in **Portuguese**.
+
+The report documents the complete project, including the hardware and software architecture, machine-learning pipeline, Edge Impulse training configuration and validation results, PWM LED control, OLED/NTP clock, MQTT connectivity, diagnostics, build instructions, technical challenges, and repository structure.
+
 ---
 
 ## Technologies Used
