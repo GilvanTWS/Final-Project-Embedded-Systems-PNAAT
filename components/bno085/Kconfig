@@ -1,0 +1,31 @@
+menu "BNO085 Driver (Hardware Level)"
+
+    config BNO085_I2C_TIMEOUT_MS
+        int "I2C Timeout (milliseconds)"
+        default 250
+        range 50 10000
+        help
+            I2C transaction timeout. Increase if experiencing timeouts on slow I2C bus.
+
+    config BNO085_RESET_RETRY_COUNT
+        int "Soft-Reset Retry Attempts"
+        default 5
+        range 1 20
+        help
+            Number of I2C soft-reset attempts during initialization.
+
+    config BNO085_RESET_RETRY_DELAY_MS
+        int "Soft-Reset Retry Delay (ms)"
+        default 30
+        range 10 1000
+        help
+            Delay between soft-reset retry attempts.
+
+    config BNO085_RESET_SETTLE_DELAY_MS
+        int "Soft-Reset Settle Delay (ms)"
+        default 300
+        range 150 5000
+        help
+            Time to wait after soft-reset for device to stabilize.
+
+endmenu

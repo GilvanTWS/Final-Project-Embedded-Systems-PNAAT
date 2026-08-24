@@ -1,0 +1,21 @@
+menu "Configuracao Wi-Fi / MQTT (PNAAT)"
+
+    config PNAAT_WIFI_SSID
+        string "SSID da rede Wi-Fi"
+        default ""
+        help
+            Deixe vazio para rodar offline (relógio e MQTT ficam desativados).
+
+    config PNAAT_WIFI_PASSWORD
+        string "Senha da rede Wi-Fi"
+        default ""
+
+    config PNAAT_MQTT_URI
+        string "URI do broker MQTT"
+        default "mqtt://broker.hivemq.com:1883"
+
+    config PNAAT_MQTT_URI_BASE
+        string "Topico-base MQTT"
+        default "testtopic/pnaat"
+
+endmenu

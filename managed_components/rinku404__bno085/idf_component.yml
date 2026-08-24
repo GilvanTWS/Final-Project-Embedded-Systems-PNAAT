@@ -1,0 +1,19 @@
+dependencies:
+  idf: '>=5.2'
+description: BNO085 9-axis IMU driver for ESP-IDF using CEVA's SH2 sensor hub protocol
+documentation: https://github.com/rinku404/esp-idf-bno085/blob/master/components/bno085/README.md
+license: Apache-2.0
+repository: git://github.com/rinku404/esp-idf-bno085.git
+repository_info:
+  commit_sha: d2109d4ae975e85839e129614afb0f7d0257a99f
+tags:
+- imu
+- bno085
+- sh2
+- i2c
+- motion-sensor
+- accelerometer
+- gyroscope
+- magnetometer
+url: https://github.com/rinku404/esp-idf-bno085
+version: 1.0.3

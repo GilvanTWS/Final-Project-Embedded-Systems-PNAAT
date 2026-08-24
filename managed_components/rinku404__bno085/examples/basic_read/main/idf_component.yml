@@ -1,0 +1,5 @@
+dependencies:
+  bno085:
+    version: 1.0.2
+description: Basic example demonstrating BNO085 sensor data acquisition
+version: 1.0.2

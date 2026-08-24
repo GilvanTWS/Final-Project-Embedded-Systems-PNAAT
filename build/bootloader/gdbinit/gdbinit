@@ -1,0 +1,2 @@
+source /home/gilvantws/Projeto_finalPNAAT/build/bootloader/gdbinit/symbols
+source /home/gilvantws/Projeto_finalPNAAT/build/bootloader/gdbinit/connect

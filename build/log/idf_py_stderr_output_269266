@@ -1,0 +1,11 @@
+CMake Error at /home/gilvantws/esp/v5.4.4/esp-idf/tools/cmake/build.cmake:330 (message):
+  Failed to resolve component 'rinku404__bno085' required by component
+  'main': unknown name.
+Call Stack (most recent call first):
+  /home/gilvantws/esp/v5.4.4/esp-idf/tools/cmake/build.cmake:373 (__build_resolve_and_add_req)
+  /home/gilvantws/esp/v5.4.4/esp-idf/tools/cmake/build.cmake:686 (__build_expand_requirements)
+  /home/gilvantws/esp/v5.4.4/esp-idf/tools/cmake/project.cmake:722 (idf_build_process)
+  CMakeLists.txt:6 (project)
+
+
+ninja: error: rebuilding 'build.ninja': subcommand failed

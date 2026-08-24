@@ -1,0 +1,13 @@
+# Target labels
+ bootloader
+# Source files and their labels
+/home/gilvantws/Projeto_finalPNAAT/build/CMakeFiles/bootloader
+/home/gilvantws/Projeto_finalPNAAT/build/CMakeFiles/bootloader.rule
+/home/gilvantws/Projeto_finalPNAAT/build/CMakeFiles/bootloader-complete.rule
+/home/gilvantws/Projeto_finalPNAAT/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+/home/gilvantws/Projeto_finalPNAAT/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+/home/gilvantws/Projeto_finalPNAAT/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+/home/gilvantws/Projeto_finalPNAAT/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+/home/gilvantws/Projeto_finalPNAAT/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+/home/gilvantws/Projeto_finalPNAAT/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+/home/gilvantws/Projeto_finalPNAAT/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
