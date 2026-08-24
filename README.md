@@ -65,9 +65,9 @@
 
 > The project uses the **new I2C API** from ESP-IDF (`driver/i2c_master.h`), not the legacy API.
 
-[IMAGE: photo of the real assembly with jumper wires visible]
+![IMAGE: photo of the real assembly with jumper wires visible](docs/images/1)
 
-[IMAGE: schematic/Fritzing diagram of the BNO085 ↔ Heltec wiring]
+![IMAGE: schematic/Fritzing diagram of the BNO085 ↔ Heltec wiring](docs/images/2)
 
 ---
 
