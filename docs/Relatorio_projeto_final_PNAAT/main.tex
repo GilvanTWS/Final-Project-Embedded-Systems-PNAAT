@@ -18,30 +18,24 @@
 \usepackage{amsmath}
 \usepackage{tcolorbox}
 \tcbuselibrary{skins,breakable}
-
-% ===================== CAMINHO DAS IMAGENS =====================
-% Como este .tex fica em docs/ e as imagens em docs/images/,
-% basta referenciar o nome do arquivo (ex: \includegraphics{montagem.jpg})
-% que o LaTeX já busca automaticamente dentro de docs/images/
 \graphicspath{{images/}}
 
-% ===================== CORES =====================
+
 \definecolor{codebg}{HTML}{F5F5F5}
 \definecolor{codeframe}{HTML}{CCCCCC}
 \definecolor{linknavy}{HTML}{00599C}
 
-% ===================== CABEÇALHO/RODAPÉ =====================
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{PNAAT Gestures ESP32}
 \fancyhead[R]{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 
-% ===================== TÍTULOS (preto negrito) =====================
+
 \titleformat{\section}{\Large\bfseries\color{black}}{\thesection}{1em}{}
 \titleformat{\subsection}{\large\bfseries\color{black}}{\thesubsection}{1em}{}
 
-% ===================== CÓDIGO =====================
+
 \lstdefinestyle{cstyle}{
     backgroundcolor=\color{codebg},
     frame=single,
@@ -62,7 +56,7 @@
 }
 \lstset{style=cstyle}
 
-% ===================== HYPERLINKS =====================
+
 \hypersetup{
     colorlinks=true,
     linkcolor=linknavy,
@@ -72,10 +66,7 @@
     pdfauthor={Projeto PNAAT}
 }
 
-% ===================== COMANDO PARA FIGURA (com fallback) =====================
-% Uso: \projimg{nome-do-arquivo}{Legenda da imagem}
-% Se o arquivo nao existir em docs/images/, mostra uma caixa de placeholder
-% em vez de quebrar a compilacao.
+
 \newcommand{\projimg}[2]{%
   \IfFileExists{images/#1}{%
     \begin{figure}[h]
@@ -90,10 +81,9 @@
   }%
 }
 
-% ===================== DOCUMENTO =====================
 \begin{document}
 
-% ---------- CAPA ----------
+
 \begin{titlepage}
     \centering
     \vspace*{2cm}
@@ -123,7 +113,7 @@
 \tableofcontents
 \newpage
 
-% ---------- FEATURES ----------
+
 \section{Funcionalidades}
 
 \begin{itemize}[leftmargin=*]
@@ -138,7 +128,7 @@
     \item Diagnóstico embutido via terminal (taxa de amostragem e contagem de pulsos no pino INT).
 \end{itemize}
 
-% ---------- HARDWARE ----------
+
 \section{Hardware e Pinagem}
 
 \textbf{Placa:} Heltec WiFi LoRa 32 V3 (ESP32-S3)\\
@@ -167,10 +157,10 @@ Console & TX/RX & GPIO43/GPIO44 & UART \\
 O projeto utiliza a \textbf{nova API I2C} do ESP-IDF (\texttt{driver/i2c\_master.h}), e não a API legada.
 \end{tcolorbox}
 
-\projimg{montagem.jpg}{Foto da montagem real com jumpers visíveis}
-\projimg{esquematico.jpg}{Diagrama esquemático/Fritzing da ligação BNO085 $\leftrightarrow$ Heltec}
+\projimg{images/1}{Foto da montagem real com jumpers visíveis}
+\projimg{images/2}{Diagrama esquemático/Fritzing da ligação BNO085 $\leftrightarrow$ Heltec}
 
-% ---------- ARQUITETURA ----------
+
 \section{Arquitetura de Software}
 
 Framework: \textbf{ESP-IDF v5.4.4} (C/C++).
@@ -210,7 +200,7 @@ Wi-Fi (não bloqueante) $\rightarrow$ trilho Vext $\rightarrow$ OLED $\rightarro
 \subsection{Partições (\texttt{partitions.csv})}
 \texttt{nvs} 24K, \texttt{phy\_init} 4K, \texttt{factory} 4 MB (binário $\approx$ 1.1 MB).
 
-% ---------- ML PIPELINE ----------
+
 \section{Pipeline de Machine Learning}
 
 \begin{enumerate}[leftmargin=*]
@@ -232,10 +222,10 @@ yaw   = atan2f(2*(qr*qk + qi*qj), 1 - 2*(qj*qj + qk*qk)) * 57.2958f;
     \end{itemize}
 \end{enumerate}
 
-\projimg{edge-impulse-studio.png}{Capturas de tela do Edge Impulse Studio — explorador de dados, acurácia/perda, matriz de confusão}
-\projimg{amostra-gesto.png}{Gráfico de uma amostra de gesto mostrando variação de pitch/yaw}
+\projimg{images/8}{Capturas de tela do Edge Impulse Studio — explorador de dados, acurácia/perda, matriz de confusão}
+\projimg{images/3}{Gráfico de uma amostra de gesto mostrando variação de pitch/yaw}
 
-% ---------- DETALHES DO TREINAMENTO ----------
+
 \section{Detalhes do Treinamento (Edge Impulse)}
 
 Esta seção documenta a configuração exata usada no Edge Impulse Studio para gerar o modelo embarcado, garantindo a reprodutibilidade do experimento.
@@ -350,10 +340,9 @@ modelo com dados coletados em sessões e condições diferentes das usadas no tr
 generalização antes de considerá-lo definitivo.
 \end{tcolorbox}
 
-\projimg{impulse-design.png}{Tela de configuração do Impulse no Edge Impulse Studio}
-\projimg{classifier-training.png}{Tela de treinamento do classificador com matriz de confusão}
+\projimg{images/4}{Tela de treinamento do classificador com matriz de confusão}
 
-% ---------- LED PWM ----------
+
 \section{Controle de LED via PWM}
 
 LEDC: canal 0, timer 0, modo baixa velocidade, 5 kHz, 10 bits (duty 0-1023).
@@ -378,7 +367,7 @@ duty = (brightness_percent * 1023) / 100;  // OFF = duty 0
 
 \projimg{led-brilho.jpg}{Sequência de fotos do LED branco a 0\%, 40\% e 80\% de brilho}
 
-% ---------- OLED / NTP ----------
+
 \section{Display OLED e Relógio NTP}
 
 4 linhas, exibidas nesta ordem:
@@ -393,7 +382,7 @@ Atualiza a cada janela classificada ou comando remoto (mostra a origem, ex.: \te
 
 Sem RTC com backup de bateria, a placa sempre inicializa na época Unix. Uma vez conectada ao Wi-Fi, o SNTP sincroniza com \texttt{pool.ntp.org} e \texttt{a.st1.ntp.br}, fuso horário \texttt{<-03>3} (Brasília, sem horário de verão).
 
-% ---------- MQTT ----------
+
 \section{Conectividade IoT / MQTT}
 
 \textbf{Broker:} \texttt{broker.hivemq.com:1883}
@@ -422,7 +411,7 @@ A publicação passa por uma fila FreeRTOS fora do caminho crítico do sensor; s
 \projimg{mqtt-telemetria.png}{Captura de tela da telemetria JSON chegando em um cliente MQTT}
 \projimg{mqtt-comando-on.jpg}{Foto do LED branco acendendo enquanto o console envia o comando \texttt{on}}
 
-% ---------- DIAGNÓSTICO ----------
+
 \section{Diagnóstico Embutido}
 
 A tarefa \texttt{diag} imprime a cada 5s:
@@ -446,7 +435,7 @@ OK & OK & Sistema saudável \\
 \end{tabular}
 \end{table}
 
-% ---------- BUILD/FLASH ----------
+
 \section{Como Compilar e Gravar}
 
 \begin{lstlisting}[language=bash,caption={Compilação e gravação}]
@@ -465,7 +454,7 @@ Terminal interativo mostrando telemetria formatada (\texttt{time | source | LED 
 
 \textbf{Configurações relevantes no \texttt{sdkconfig}:} otimização \texttt{-Os}, \texttt{CONFIG\_PARTITION\_TABLE\_CUSTOM}, flash de 8 MB, \texttt{LV\_FONT\_MONTSERRAT\_12} habilitado.
 
-% ---------- DESAFIOS ----------
+
 \section{Desafios Técnicos Resolvidos}
 
 \begin{enumerate}[leftmargin=*]
@@ -480,7 +469,7 @@ Terminal interativo mostrando telemetria formatada (\texttt{time | source | LED 
     \item Depreciações do GCC 14 (incremento de \texttt{volatile}, \texttt{std::is\_pod}).
 \end{enumerate}
 
-% ---------- ESTRUTURA ----------
+
 \section{Estrutura do Repositório}
 
 \begin{lstlisting}[language={}, basicstyle=\ttfamily\footnotesize]
@@ -516,7 +505,7 @@ Projeto_finalPNAAT/
 `-- sdkconfig.old
 \end{lstlisting}
 
-% ---------- TECNOLOGIAS ----------
+
 \section{Tecnologias Utilizadas}
 
 \begin{itemize}[leftmargin=*]
@@ -531,12 +520,12 @@ Projeto_finalPNAAT/
     \item Nova API \texttt{i2c\_master}
 \end{itemize}
 
-% ---------- CRÉDITOS ----------
+
 \section{Créditos e Agradecimentos}
 
 Curso PNAAT $\cdot$ Plataforma Edge Impulse $\cdot$ Heltec $\cdot$ Comunidade Espressif
 
-% ---------- LICENÇA ----------
+
 \section{Licença}
 
 Este projeto está licenciado sob a Licença MIT — consulte o arquivo \texttt{LICENSE} para mais detalhes.
