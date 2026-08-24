@@ -1,4 +1,4 @@
-# PNAAT Gestos ESP32 — AI-Powered Home Automation 🤖
+# PNAAT Gestures ESP32 — AI-Powered Home Automation 🤖
 
 ![Platform](https://img.shields.io/badge/platform-ESP32--S3-e7352c?style=flat-square&logo=espressif)
 ![ESP-IDF](https://img.shields.io/badge/ESP--IDF-v5.4.4-blue?style=flat-square)
